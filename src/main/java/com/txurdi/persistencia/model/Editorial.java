@@ -1,12 +1,15 @@
 package com.txurdi.persistencia.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +25,19 @@ public class Editorial  implements Serializable {
 		
 	private String nombre;
 	
+	@OneToMany(mappedBy="editorial")
+	private Set<Libro> libros;
+	
 	public Editorial() {
 		super();
 		this.id = 0;
 		this.nombre = "";
+		this.libros=new HashSet();
 	}
+	
+	
+
+	
 
 	public Editorial(String nombre) {
 		this();
@@ -49,6 +60,14 @@ public class Editorial  implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public Set<Libro> getLibros() {
+		return libros;
+	}
+
+	public void setLibros(Set<Libro> libros) {
+		this.libros = libros;
+	}
+	
 	@Override
 	public String toString() {
 		return "Editorial [id=" + id + ", nombre=" + nombre + "]";
